@@ -4,7 +4,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import HomeScreen from './Screens/HomeScreen';
 import CartScreen from './Screens/CartScreen';
-import Icon from 'react-native-vector-icons/Ionicons'; // Example icon library
 
 const Drawer = createDrawerNavigator();
 
