@@ -1,4 +1,4 @@
-# 11020486-rn-assignment5
+# 11020486-rn-assignment6
 ## clothingApp
 
 This React Native application is a simple e-commerce app that allows users to browse items, add them to a cart, and view the items in the cart with their total price. The app includes a home screen and a cart screen, with navigation provided by a drawer navigator.
