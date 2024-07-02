@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, View, Text, FlatList, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { SafeAreaView, View, Text, FlatList, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function CartScreen() {
@@ -31,8 +31,33 @@ export default function CartScreen() {
         }
     };
 
+    const calculateTotalPrice = () => {
+        return cartItems.reduce((total, item) => total + parseFloat(item.price.replace('$', '')), 0).toFixed(2);
+    };
+
+    const Footer = () => (
+        <View style={styles.footer}>
+            <Text style={styles.totalPriceText}> Est. Total: ${calculateTotalPrice()}</Text>
+            <TouchableOpacity style={styles.checkoutButton}>
+                <Image source={require('../assets/shoppingBag_w.png')} style={{ marginLeft:90, marginRight: 25, height: 25, width:20}}/>
+                <Text style={styles.checkoutButtonText}>Checkout</Text>
+            </TouchableOpacity>
+        </View>
+    );
+
+    const Header = () => (
+        <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 120 }}>
+        <Image source={require('../assets/Logo.png')} style={{marginLeft: 30 }}/>
+        <View style={{ flexDirection: 'row', marginLeft: 80,}}>
+            <Image source={require('../assets/Search.png')} style={{ marginRight: 20}}/>
+        </View>
+      </View>
+    );
+    
     return (
         <SafeAreaView style={styles.container}>
+            <Header/> <br/> 
+            <Text style={{fontFamily: 'Verdana', fontWeight: '500', fontSize: 26, textAlign: 'center'}}>Checkout</Text>
             <FlatList
                 data={cartItems}
                 renderItem={({ item }) => (
@@ -52,6 +77,7 @@ export default function CartScreen() {
                     </View>
                 )}
                 keyExtractor={(item, index) => index.toString()}
+                ListFooterComponent={<Footer />}
             />
         </SafeAreaView>
     );
@@ -90,5 +116,29 @@ const styles = StyleSheet.create({
     removefromCartIcon: {
         width: 25,
         height: 25,
+    },
+    footer: {
+        padding: 20,
+        borderTopWidth: 1,
+        borderColor: '#ddd',
+        backgroundColor: '#fff',
+        alignItems: 'center',
+    },
+    totalPriceText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 20,
+    },
+    checkoutButton: {
+        flexDirection: 'row',
+        backgroundColor: '#000',
+        padding: 15,
+        borderRadius: 10,
+        width: '100%'
+    },
+    checkoutButtonText: {
+        color: '#fff',
+        fontSize: 18,
+        fontWeight: 'bold',
     },
 });
